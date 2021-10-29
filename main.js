@@ -5,6 +5,8 @@ let SCALER = 0.8;
 let SIZE = { x: 0, y: 0, width: 0, height: 0, rows: 3, columns: 3 };
 let PIECES = [];
 let SELECTED_PIECE = null;
+let START_TIME = null;
+let END_TIME = null;
 
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
@@ -28,6 +30,30 @@ const main = () => {
     .catch((err) => {
       alert(`Camera error: ${err}`);
     });
+};
+
+const setDifficulty = () => {
+  let diff = document.getElementById("difficulty").value;
+  switch (diff) {
+    case "easy":
+      initializePieces(3, 3);
+      break;
+    case "medium":
+      initializePieces(5, 5);
+      break;
+    case "hard":
+      initializePieces(10, 10);
+      break;
+    case "insane":
+      initializePieces(40, 25);
+      break;
+  }
+};
+
+const restart = () => {
+  START_TIME = new Date().getTime();
+  END_TIME = null;
+  randomizePieces();
 };
 
 const addEventListeners = () => {
