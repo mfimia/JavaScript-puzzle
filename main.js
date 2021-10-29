@@ -54,6 +54,7 @@ const restart = () => {
   START_TIME = new Date().getTime();
   END_TIME = null;
   randomizePieces();
+  document.getElementById('menuItems').style.display='none';
 };
 
 const updateTime = () => {
