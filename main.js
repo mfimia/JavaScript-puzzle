@@ -7,6 +7,8 @@ let PIECES = [];
 let SELECTED_PIECE = null;
 let START_TIME = null;
 let END_TIME = null;
+let POP_SOUND = new Audio('assets/pop.m4a');
+POP_SOUND.volume = 0.4;
 
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
@@ -260,6 +262,7 @@ class Piece {
     this.x = this.xCorrect;
     this.y = this.yCorrect;
     this.correct = true;
+    POP_SOUND.play();
   }
 }
 
