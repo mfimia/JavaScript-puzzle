@@ -3,6 +3,7 @@ body {
   overflow: hidden;
   overscroll-behavior: none;
   font-family: 'consolas';
+  background-color: black;
 }
 
 #menuItems {
@@ -14,11 +15,11 @@ body {
   text-align: center;
   padding: 5vmin;
   border: 1vmin rgba(0,0,0,0.6) solid;
-  font-size: 7vmin;
+  font-size: 5vmin;
 }
 
 button {
-  font-size: 7vmin;
+  font-size: 5vmin;
   background: rgb(123,146,196);
   color: white;
   cursor: pointer;
@@ -33,7 +34,7 @@ button:hover {
 }
 
 select {
-  font-size: 7vmin;
+  font-size: 4vmin;
   cursor: pointer;
   border: none;
   border-radius: 1vmin;
@@ -45,5 +46,6 @@ select {
   top: 0;
   left: 50%;
   transform: translate(-50%);
-  font-size: 7vmin;
+  font-size: 5vmin;
+  color:white;
 }
