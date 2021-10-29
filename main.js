@@ -24,7 +24,7 @@ const main = () => {
         handleResize();
         window.addEventListener("resize", handleResize);
         initializePieces(SIZE.rows, SIZE.columns);
-        updateCanvas();
+        updateGame();
       };
     })
     .catch((err) => {
@@ -54,6 +54,27 @@ const restart = () => {
   START_TIME = new Date().getTime();
   END_TIME = null;
   randomizePieces();
+};
+
+const updateTime = () => {
+  let now = new Date().getTime();
+  if (START_TIME != null) {
+    document.getElementById("time").innerHTML = formatTime(now - START_TIME);
+  }
+};
+
+const formatTime = (miliseconds) => {
+  let seconds = Math.floor(miliseconds / 1000);
+  let s = Math.floor(seconds % 60);
+  let m = Math.floor((seconds % (60 * 60)) / 60);
+  let h = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+
+  let formattedTime = h.toString().padStart(2, "0");
+  formattedTime += ":";
+  formattedTime += m.toString().padStart(2, "0");
+  formattedTime += ":";
+  formattedTime += s.toString().padStart(2, "0");
+  return formattedTime;
 };
 
 const addEventListeners = () => {
@@ -137,13 +158,14 @@ const handleResize = () => {
   SIZE.y = window.innerHeight / 2 - SIZE.height / 2;
 };
 
-const updateCanvas = () => {
+const updateGame = () => {
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
   CONTEXT.globalAlpha = 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
   CONTEXT.globalAlpha = 1;
 
-  window.requestAnimationFrame(updateCanvas);
+  updateTime();
+  window.requestAnimationFrame(updateGame);
   for (let i = 0; i < PIECES.length; i++) {
     PIECES[i].draw(CONTEXT);
   }
