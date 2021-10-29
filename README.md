@@ -1,7 +1,7 @@
-# Puzzle Cam
+# JavaScript PuzzleCam
 
-### Developed with JavaScript, SQL, HTML canvas and PHP
+### Technologies used:
+Vanilla JavaScript and HTML Canvas
 
-### Requirements
-- Suitable for all screen sizes
-- Camera required
+### Requirements:
+All you need is a working camera and a good pair of eyes! 👀
