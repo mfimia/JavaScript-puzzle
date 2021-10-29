@@ -66,7 +66,7 @@ const onMouseUp = (evt) => {
 };
 
 const getPressedPiece = (loc) => {
-  for (let i = 0; i < PIECES.length; i++) {
+  for (let i = PIECES.length -1; i >= 0; i--) {
     if (
       loc.x > PIECES[i].x &&
       loc.x < PIECES[i].x + PIECES[i].width &&
