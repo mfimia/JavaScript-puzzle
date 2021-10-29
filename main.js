@@ -39,6 +39,11 @@ const addEventListeners = () => {
 const onMouseDown = (evt) => {
   SELECTED_PIECE = getPressedPiece(evt);
   if (SELECTED_PIECE != null) {
+    const index = PIECES.indexOf(SELECTED_PIECE);
+    if (index > -1) {
+      PIECES.splice(index, 1);
+      PIECES.push(SELECTED_PIECE);
+    }
     SELECTED_PIECE.offset = {
       x: evt.x - SELECTED_PIECE.x,
       y: evt.y - SELECTED_PIECE.y,
@@ -131,6 +136,8 @@ class Piece {
     this.y = SIZE.y + (SIZE.height * this.rowIndex) / SIZE.rows;
     this.width = SIZE.width / SIZE.columns;
     this.height = SIZE.height / SIZE.rows;
+    this.xCorrect = this.x;
+    this.yCorrect = this.y;
   }
   draw(context) {
     context.beginPath();
@@ -148,4 +155,27 @@ class Piece {
     context.rect(this.x, this.y, this.width, this.height);
     context.stroke();
   }
+  // Setting the threshold at 33%
+  isClose() {
+    if (
+      distance(
+        { x: this.x, y: this.y },
+        { x: this.xCorrect, y: this.yCorrect }
+      ) <
+      this.width / 3
+    ) {
+      return true;
+    }
+    return false;
+  }
+  snap() {
+    this.x = this.xCorrect;
+    this.y = this.yCorrect;
+  }
 }
+
+const distance = (p1, p2) => {
+  return Math.sqrt(
+    (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)
+  );
+};
