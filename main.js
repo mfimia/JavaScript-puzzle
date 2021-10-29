@@ -5,6 +5,10 @@ let SCALER = 0.8;
 let SIZE = { x: 0, y: 0, width: 0, height: 0, rows: 3, columns: 3 };
 let PIECES = [];
 let SELECTED_PIECE = null;
+let START_TIME = null;
+let END_TIME = null;
+let POP_SOUND = new Audio('assets/pop.m4a');
+POP_SOUND.volume = 0.4;
 
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
@@ -22,12 +26,73 @@ const main = () => {
         handleResize();
         window.addEventListener("resize", handleResize);
         initializePieces(SIZE.rows, SIZE.columns);
-        updateCanvas();
+        updateGame();
       };
     })
     .catch((err) => {
       alert(`Camera error: ${err}`);
     });
+};
+
+const setDifficulty = () => {
+  let diff = document.getElementById("difficulty").value;
+  switch (diff) {
+    case "easy":
+      initializePieces(3, 3);
+      break;
+    case "medium":
+      initializePieces(5, 5);
+      break;
+    case "hard":
+      initializePieces(10, 10);
+      break;
+    case "insane":
+      initializePieces(40, 25);
+      break;
+  }
+};
+
+const restart = () => {
+  START_TIME = new Date().getTime();
+  END_TIME = null;
+  randomizePieces();
+  document.getElementById('menuItems').style.display='none';
+};
+
+const updateTime = () => {
+  let now = new Date().getTime();
+  if (START_TIME != null) {
+    if (END_TIME != null) {
+      document.getElementById("time").innerHTML = formatTime(
+        END_TIME - START_TIME
+      );
+    } else {
+      document.getElementById("time").innerHTML = formatTime(now - START_TIME);
+    }
+  }
+};
+
+const isComplete = () => {
+  for (let i = 0; i < PIECES.length; i++) {
+    if (PIECES[i].correct == false) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const formatTime = (miliseconds) => {
+  let seconds = Math.floor(miliseconds / 1000);
+  let s = Math.floor(seconds % 60);
+  let m = Math.floor((seconds % (60 * 60)) / 60);
+  let h = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+
+  let formattedTime = h.toString().padStart(2, "0");
+  formattedTime += ":";
+  formattedTime += m.toString().padStart(2, "0");
+  formattedTime += ":";
+  formattedTime += s.toString().padStart(2, "0");
+  return formattedTime;
 };
 
 const addEventListeners = () => {
@@ -65,6 +130,7 @@ const onMouseDown = (evt) => {
       x: evt.x - SELECTED_PIECE.x,
       y: evt.y - SELECTED_PIECE.y,
     };
+    SELECTED_PIECE.correct = false;
   }
 };
 
@@ -78,6 +144,10 @@ const onMouseMove = (evt) => {
 const onMouseUp = () => {
   if (SELECTED_PIECE.isClose()) {
     SELECTED_PIECE.snap();
+    if (isComplete() && END_TIME == null) {
+      let now = new Date().getTime();
+      END_TIME = now;
+    }
   }
   SELECTED_PIECE = null;
 };
@@ -111,13 +181,14 @@ const handleResize = () => {
   SIZE.y = window.innerHeight / 2 - SIZE.height / 2;
 };
 
-const updateCanvas = () => {
+const updateGame = () => {
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
   CONTEXT.globalAlpha = 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
   CONTEXT.globalAlpha = 1;
 
-  window.requestAnimationFrame(updateCanvas);
+  updateTime();
+  window.requestAnimationFrame(updateGame);
   for (let i = 0; i < PIECES.length; i++) {
     PIECES[i].draw(CONTEXT);
   }
@@ -142,6 +213,7 @@ const randomizePieces = () => {
     };
     PIECES[i].x = loc.x;
     PIECES[i].y = loc.y;
+    PIECES[i].correct = false;
   }
 };
 
@@ -155,6 +227,7 @@ class Piece {
     this.height = SIZE.height / SIZE.rows;
     this.xCorrect = this.x;
     this.yCorrect = this.y;
+    this.correct = true;
   }
   draw(context) {
     context.beginPath();
@@ -172,7 +245,7 @@ class Piece {
     context.rect(this.x, this.y, this.width, this.height);
     context.stroke();
   }
-  // Setting the threshold at 33%
+  // Setting the threshold to identify if piece is in correct location by proximity at 33%
   isClose() {
     if (
       distance(
@@ -188,6 +261,8 @@ class Piece {
   snap() {
     this.x = this.xCorrect;
     this.y = this.yCorrect;
+    this.correct = true;
+    POP_SOUND.play();
   }
 }
 
