@@ -1,4 +1,5 @@
 let VIDEO = null;
+let PAUSE = false;
 let CANVAS = null;
 let CONTEXT = null;
 let SCALER = 0.8;
@@ -21,7 +22,6 @@ const main = () => {
       VIDEO = document.createElement("video");
       VIDEO.srcObject = signal;
       VIDEO.play();
-
       VIDEO.onloadeddata = () => {
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -184,6 +184,7 @@ const handleResize = () => {
 };
 
 const updateGame = () => {
+  if (PAUSE) {VIDEO.pause()}
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
   CONTEXT.globalAlpha = 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
@@ -267,6 +268,13 @@ class Piece {
     POP_SOUND.play();
   }
 }
+
+// Snapshot function
+const click_button = document.getElementById("photo-button");
+click_button.addEventListener("click", () => {
+  PAUSE = !PAUSE;
+  updateGame();
+});
 
 const distance = (p1, p2) => {
   return Math.sqrt(
