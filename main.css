@@ -92,3 +92,9 @@ input:checked + .switch {
 input:checked + .switch::after {
   background-color: #ccc;
 }
+
+@media screen and (max-width: 768px) {
+  #switch-wrap {
+    display: none;
+  }
+}
