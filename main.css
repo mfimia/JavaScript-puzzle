@@ -2,35 +2,38 @@ body {
   margin: 0;
   overflow: hidden;
   overscroll-behavior: none;
-  font-family: 'consolas';
+  font-family: "consolas";
   background-color: black;
 }
 
 #menuItems {
   position: absolute;
-  top:50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   text-align: center;
   padding: 5vmin;
-  border: 1vmin rgba(0,0,0,0.6) solid;
+  border: 1vmin rgba(0, 0, 0, 0.6) solid;
   font-size: 5vmin;
+  color: white;
+  border-radius: 8%;
 }
 
 button {
   font-size: 5vmin;
-  background: rgb(123,146,196);
-  color: white;
+  background: white;
+  color: black;
   cursor: pointer;
   transition: 0.3s ease;
   border: none;
   border-radius: 1vmin;
+  padding: 1vmin;
 }
 
 button:hover {
-  background: orange;
-  color:black;
+  background: black;
+  color: white;
 }
 
 select {
@@ -43,9 +46,9 @@ select {
 
 #time {
   position: absolute;
-  top: 0;
+  top: 1%;
   left: 50%;
   transform: translate(-50%);
   font-size: 5vmin;
-  color:white;
+  color: white;
 }
