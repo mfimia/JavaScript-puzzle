@@ -7,9 +7,8 @@ let PIECES = [];
 let SELECTED_PIECE = null;
 let START_TIME = null;
 let END_TIME = null;
-let POP_SOUND = new Audio('assets/pop.m4a');
+let POP_SOUND = new Audio("assets/pop.m4a");
 POP_SOUND.volume = 0.4;
-
 
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
@@ -57,7 +56,7 @@ const restart = () => {
   START_TIME = new Date().getTime();
   END_TIME = null;
   randomizePieces();
-  document.getElementById('menuItems').style.display='none';
+  document.getElementById("menuItems").style.display = "none";
 };
 
 const updateTime = () => {
@@ -181,7 +180,7 @@ const handleResize = () => {
   SIZE.x = window.innerWidth / 2 - SIZE.width / 2;
   SIZE.y = window.innerHeight / 2 - SIZE.height / 2;
   updateGame();
-  initializePieces(SIZE.rows, SIZE.columns)
+  initializePieces(SIZE.rows, SIZE.columns);
 };
 
 const updateGame = () => {
