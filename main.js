@@ -1,4 +1,5 @@
 let VIDEO = null;
+// PAUSE toggler
 let PAUSE = false;
 let CANVAS = null;
 let CONTEXT = null;
@@ -184,7 +185,8 @@ const handleResize = () => {
 };
 
 const updateGame = () => {
-  if (PAUSE) {VIDEO.pause()}
+  // Added logic to pause the video if toggle switched on
+  PAUSE ? VIDEO.pause() : VIDEO.play();
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
   CONTEXT.globalAlpha = 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
@@ -269,7 +271,7 @@ class Piece {
   }
 }
 
-// Snapshot function
+// Snapshot function to play with an image instead of a video
 const click_button = document.getElementById("photo-button");
 click_button.addEventListener("click", () => {
   PAUSE = !PAUSE;
