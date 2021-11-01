@@ -272,7 +272,7 @@ class Piece {
 }
 
 // Snapshot function to play with an image instead of a video
-const click_button = document.getElementById("photo-button");
+const click_button = document.getElementById("video-toggler");
 click_button.addEventListener("click", () => {
   PAUSE = !PAUSE;
   updateGame();
