@@ -10,6 +10,7 @@ let END_TIME = null;
 let POP_SOUND = new Audio('assets/pop.m4a');
 POP_SOUND.volume = 0.4;
 
+
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
   CONTEXT = CANVAS.getContext("2d");
@@ -179,6 +180,8 @@ const handleResize = () => {
   SIZE.height = resizer * VIDEO.videoHeight;
   SIZE.x = window.innerWidth / 2 - SIZE.width / 2;
   SIZE.y = window.innerHeight / 2 - SIZE.height / 2;
+  updateGame();
+  initializePieces(SIZE.rows, SIZE.columns)
 };
 
 const updateGame = () => {
@@ -271,3 +274,4 @@ const distance = (p1, p2) => {
     (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)
   );
 };
+window.addEventListener("resize", handleResize);
