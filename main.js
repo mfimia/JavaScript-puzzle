@@ -1,6 +1,7 @@
 let VIDEO = null;
 // PAUSE toggler
 let PAUSE = false;
+let STARTED = false;
 let HARD_MODE = false;
 let CANVAS = null;
 let CONTEXT = null;
@@ -57,6 +58,7 @@ const setDifficulty = () => {
 const restart = () => {
   START_TIME = new Date().getTime();
   END_TIME = null;
+  STARTED = true;
   randomizePieces();
   document.getElementById("menuItems").style.display = "none";
 };
@@ -146,9 +148,11 @@ const onMouseMove = (evt) => {
 const onMouseUp = () => {
   if (SELECTED_PIECE.isClose()) {
     SELECTED_PIECE.snap();
-    if (isComplete() && END_TIME == null) {
+    if (isComplete() && END_TIME == null && STARTED) {
       let now = new Date().getTime();
       END_TIME = now;
+      STARTED = false;
+      document.getElementById("menuItems").style.display = "";
     }
   }
   SELECTED_PIECE = null;
