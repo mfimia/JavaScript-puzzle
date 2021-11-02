@@ -18,7 +18,6 @@ const main = () => {
   CANVAS = document.getElementById("myCanvas");
   CONTEXT = CANVAS.getContext("2d");
   addEventListeners();
-  document.getElementById("end-game").style.display = "none";
 
   let promise = navigator.mediaDevices.getUserMedia({ video: true });
   promise
@@ -62,7 +61,7 @@ const restart = () => {
   STARTED = true;
   randomizePieces();
   document.getElementById("menuItems").style.display = "none";
-  document.getElementById("end-game").style.display = "none";
+  document.getElementById("end-game").style.visibility = "";
 };
 
 const updateTime = () => {
@@ -155,7 +154,7 @@ const onMouseUp = () => {
       END_TIME = now;
       STARTED = false;
       document.getElementById("menuItems").style.display = "";
-      document.getElementById("end-game").style.display = "";
+      document.getElementById("end-game").style.visibility = "visible";
     }
   }
   SELECTED_PIECE = null;
