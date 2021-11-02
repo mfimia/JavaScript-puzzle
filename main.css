@@ -20,6 +20,24 @@ body {
   border-radius: 8%;
 }
 
+#end-game {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: x-large;
+  color: white;
+  padding: 0 4vmin;
+  background-color: black;
+  border: white 1vmin solid;
+  border-radius: 8%;
+  width: fit-content;
+}
+
+#difficulty {
+  font-family: "consolas";
+}
+
 button {
   font-size: 5vmin;
   background: white;
@@ -29,6 +47,7 @@ button {
   border: none;
   border-radius: 1vmin;
   padding: 1vmin;
+  font-family: "consolas";
 }
 
 button:hover {
@@ -53,7 +72,7 @@ select {
   color: white;
 }
 
-#switch-wrap {
+[id*="switch-wrap"] {
   cursor: pointer;
   background: #15273b;
   padding: 7px;
@@ -62,23 +81,33 @@ select {
   border-radius: 33.5px;
   position: absolute;
   cursor: pointer;
+}
+
+#switch-wrap-1 {
   top: 2%;
   right: 2%;
 }
-#switch-wrap input {
+
+#switch-wrap-2 {
+  top: 8%;
+  right: 2%;
+}
+
+[id*="switch-wrap"] input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.switch {
+[class*="switch"] {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 0fr;
   transition: 0.2s ease;
 }
-.switch::after {
+
+[class*="switch"]::after {
   content: "";
   border-radius: 50%;
   background: #52cf71;
@@ -86,15 +115,36 @@ select {
   transition: all 0.2s ease;
 }
 
-input:checked + .switch {
+input:checked + [class*="switch"] {
   grid-template-columns: 0fr 1fr 1fr;
 }
-input:checked + .switch::after {
+
+input:checked + [class*="switch"]::after {
   background-color: #ccc;
 }
 
-@media screen and (max-width: 768px) {
-  #switch-wrap {
+@media screen and (max-width: 1080px) {
+  [id*="switch-wrap"] {
     display: none;
   }
+  #end-game {
+    top: 15%;
+    font-size: large;
+  }
+}
+
+input:checked + .switch-2::after {
+  background-color: rgb(250, 54, 54);
+}
+
+.switch-2::after {
+  background-color: #ccc;
+}
+
+.switch-2 {
+  grid-template-columns: 0fr 1fr 1fr;
+}
+
+input:checked + .switch-2 {
+  grid-template-columns: 1fr 1fr 0fr;
 }

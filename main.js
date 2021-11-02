@@ -1,6 +1,8 @@
 let VIDEO = null;
 // PAUSE toggler
 let PAUSE = false;
+let STARTED = false;
+let HARD_MODE = false;
 let CANVAS = null;
 let CONTEXT = null;
 let SCALER = 0.8;
@@ -16,6 +18,7 @@ const main = () => {
   CANVAS = document.getElementById("myCanvas");
   CONTEXT = CANVAS.getContext("2d");
   addEventListeners();
+  document.getElementById("end-game").style.display = "none";
 
   let promise = navigator.mediaDevices.getUserMedia({ video: true });
   promise
@@ -56,8 +59,10 @@ const setDifficulty = () => {
 const restart = () => {
   START_TIME = new Date().getTime();
   END_TIME = null;
+  STARTED = true;
   randomizePieces();
   document.getElementById("menuItems").style.display = "none";
+  document.getElementById("end-game").style.display = "none";
 };
 
 const updateTime = () => {
@@ -145,9 +150,12 @@ const onMouseMove = (evt) => {
 const onMouseUp = () => {
   if (SELECTED_PIECE.isClose()) {
     SELECTED_PIECE.snap();
-    if (isComplete() && END_TIME == null) {
+    if (isComplete() && END_TIME == null && STARTED) {
       let now = new Date().getTime();
       END_TIME = now;
+      STARTED = false;
+      document.getElementById("menuItems").style.display = "";
+      document.getElementById("end-game").style.display = "";
     }
   }
   SELECTED_PIECE = null;
@@ -188,7 +196,7 @@ const updateGame = () => {
   // Added logic to pause the video if toggle switched on
   PAUSE ? VIDEO.pause() : VIDEO.play();
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
-  CONTEXT.globalAlpha = 0.5;
+  CONTEXT.globalAlpha = HARD_MODE ? 0 : 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
   CONTEXT.globalAlpha = 1;
 
@@ -272,9 +280,15 @@ class Piece {
 }
 
 // Snapshot function to play with an image instead of a video
-const click_button = document.getElementById("video-toggler");
-click_button.addEventListener("click", () => {
+const videoPause = document.getElementById("video-toggler");
+videoPause.addEventListener("click", () => {
   PAUSE = !PAUSE;
+  updateGame();
+});
+
+const hardMode = document.getElementById("hard-mode");
+hardMode.addEventListener("click", () => {
+  HARD_MODE = !HARD_MODE;
   updateGame();
 });
 
