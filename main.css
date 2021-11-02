@@ -20,6 +20,10 @@ body {
   border-radius: 8%;
 }
 
+#difficulty {
+  font-family: "consolas";
+}
+
 button {
   font-size: 5vmin;
   background: white;
@@ -29,6 +33,7 @@ button {
   border: none;
   border-radius: 1vmin;
   padding: 1vmin;
+  font-family: "consolas";
 }
 
 button:hover {
