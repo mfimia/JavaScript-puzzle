@@ -13,10 +13,10 @@ let START_TIME = null;
 let END_TIME = null;
 const POP_SOUND = new Audio("assets/pop.m4a");
 const VICTORY_SOUND = new Audio(
-  "assets/final-fantasy-vii-victory-fanfare-1.mp3"
+  "assets/final-fantasy-vii-victory-fanfare-1.mp4"
 );
 POP_SOUND.volume = 0.4;
-VICTORY_SOUND.volume = 0.2;
+VICTORY_SOUND.volume = 0.1;
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
   CONTEXT = CANVAS.getContext("2d");
