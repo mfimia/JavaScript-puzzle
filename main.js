@@ -43,16 +43,16 @@ const main = () => {
 const setDifficulty = () => {
   let diff = document.getElementById("difficulty").value;
   switch (diff) {
-    case "easy":
+    case "Easy":
       initializePieces(3, 3);
       break;
-    case "medium":
+    case "Medium":
       initializePieces(5, 5);
       break;
-    case "hard":
+    case "Hard":
       initializePieces(10, 10);
       break;
-    case "insane":
+    case "Insane":
       initializePieces(40, 25);
       break;
   }
@@ -159,12 +159,25 @@ const onMouseUp = () => {
         END_TIME = now;
         STARTED = false;
         document.getElementById("menuItems").style.display = "";
-        document.getElementById("end-game").style.visibility = "visible";
+        const endScreen = document.getElementById("end-game");
+        endScreen.style.visibility = "visible";
+        endScreen.innerHTML = `<h1>Nice job!🎉🎉🎉</h1> <br><br><br> <h3>Result:</h3><br>Mode: ${
+          document.getElementById("difficulty").value
+        } | Time: ${formatTime(
+          END_TIME - START_TIME
+        )}<br><br><button onclick="goAgain()">Go again?</button>`;
       }
     }
   }
 
   SELECTED_PIECE = null;
+};
+
+const goAgain = () => {
+  VICTORY_SOUND.pause();
+  VICTORY_SOUND.currentTime = 0;
+  document.getElementById("end-game").style.visibility = "";
+  document.getElementById("menuItems").style.display = "";
 };
 
 const getPressedPiece = (loc) => {
