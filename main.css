@@ -21,18 +21,22 @@ body {
 }
 
 #end-game {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   position: absolute;
-  top: 25%;
-  left: 50%;
-  visibility: hidden;
-  transform: translate(-50%, -50%);
   font-size: x-large;
   color: white;
-  padding: 0 4vmin;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 1);
   border: white 1vmin solid;
-  border-radius: 8%;
-  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  visibility: hidden;
+  transition: all ease 0.8s;
 }
 
 #difficulty {
