@@ -150,17 +150,20 @@ const onMouseMove = (evt) => {
 };
 
 const onMouseUp = () => {
-  if (SELECTED_PIECE.isClose()) {
-    SELECTED_PIECE.snap();
-    if (isComplete() && END_TIME == null && STARTED) {
-      VICTORY_SOUND.play()
-      let now = new Date().getTime();
-      END_TIME = now;
-      STARTED = false;
-      document.getElementById("menuItems").style.display = "";
-      document.getElementById("end-game").style.visibility = "visible";
+  if (SELECTED_PIECE) {
+    if (SELECTED_PIECE.isClose()) {
+      SELECTED_PIECE.snap();
+      if (isComplete() && END_TIME == null && STARTED) {
+        VICTORY_SOUND.play();
+        let now = new Date().getTime();
+        END_TIME = now;
+        STARTED = false;
+        document.getElementById("menuItems").style.display = "";
+        document.getElementById("end-game").style.visibility = "visible";
+      }
     }
   }
+
   SELECTED_PIECE = null;
 };
 
