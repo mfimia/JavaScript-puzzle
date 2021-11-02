@@ -1,6 +1,7 @@
 let VIDEO = null;
 // PAUSE toggler
 let PAUSE = false;
+let HARD_MODE = false;
 let CANVAS = null;
 let CONTEXT = null;
 let SCALER = 0.8;
@@ -188,7 +189,7 @@ const updateGame = () => {
   // Added logic to pause the video if toggle switched on
   PAUSE ? VIDEO.pause() : VIDEO.play();
   CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
-  CONTEXT.globalAlpha = 0.5;
+  CONTEXT.globalAlpha = HARD_MODE ? 0 : 0.5;
   CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
   CONTEXT.globalAlpha = 1;
 
@@ -272,9 +273,15 @@ class Piece {
 }
 
 // Snapshot function to play with an image instead of a video
-const click_button = document.getElementById("video-toggler");
-click_button.addEventListener("click", () => {
+const videoPause = document.getElementById("video-toggler");
+videoPause.addEventListener("click", () => {
   PAUSE = !PAUSE;
+  updateGame();
+});
+
+const hardMode = document.getElementById("hard-mode");
+hardMode.addEventListener("click", () => {
+  HARD_MODE = !HARD_MODE;
   updateGame();
 });
 
