@@ -20,6 +20,20 @@ body {
   border-radius: 8%;
 }
 
+#end-game {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: x-large;
+  color: white;
+  padding: 0 4vmin;
+  background-color: black;
+  border: white 1vmin solid;
+  border-radius: 8%;
+  width: fit-content;
+}
+
 #difficulty {
   font-family: "consolas";
 }
@@ -109,9 +123,13 @@ input:checked + [class*="switch"]::after {
   background-color: #ccc;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1080px) {
   [id*="switch-wrap"] {
     display: none;
+  }
+  #end-game {
+    top: 15%;
+    font-size: large;
   }
 }
 
