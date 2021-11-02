@@ -279,7 +279,7 @@ class Piece {
   }
 }
 
-// Snapshot function to play with an image instead of a video
+// Video and hard mode togglers
 const videoPause = document.getElementById("video-toggler");
 videoPause.addEventListener("click", () => {
   PAUSE = !PAUSE;
