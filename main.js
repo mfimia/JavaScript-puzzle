@@ -11,9 +11,12 @@ let PIECES = [];
 let SELECTED_PIECE = null;
 let START_TIME = null;
 let END_TIME = null;
-let POP_SOUND = new Audio("assets/pop.m4a");
+const POP_SOUND = new Audio("assets/pop.m4a");
+const VICTORY_SOUND = new Audio(
+  "assets/final-fantasy-vii-victory-fanfare-1.mp3"
+);
 POP_SOUND.volume = 0.4;
-
+VICTORY_SOUND.volume = 0.2;
 const main = () => {
   CANVAS = document.getElementById("myCanvas");
   CONTEXT = CANVAS.getContext("2d");
@@ -150,6 +153,7 @@ const onMouseUp = () => {
   if (SELECTED_PIECE.isClose()) {
     SELECTED_PIECE.snap();
     if (isComplete() && END_TIME == null && STARTED) {
+      VICTORY_SOUND.play()
       let now = new Date().getTime();
       END_TIME = now;
       STARTED = false;
