@@ -142,10 +142,6 @@ input:checked + .switch-2::after {
   background-color: rgb(250, 54, 54);
 }
 
-/* .switch-2::after {
-  background-color: #ccc;
-} */
-
 input:checked + .switch-2 {
   grid-template-columns: 1fr 1fr 0fr;
 }
